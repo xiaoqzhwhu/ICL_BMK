@@ -6,7 +6,7 @@ import random
 # from transformers import GPT2Tokenizer, GPT2ForSequenceClassification
 # tokenizer = GPT2Tokenizer.from_pretrained("../DynamicBag/model/gpt2/", max_length=1e6)
 
-MAX_CONTEXT_LEN = 1.28e5
+MAX_CONTEXT_LEN = 3.2e4
 DATA_DIR = "../../ICL/data/HELM/"
 MODEL_DIR = "/mnt/vepfs/devel/zhangxiaoqing/ICL/models/t-20231014231302-k6jw7-iter_0001800/"
 
