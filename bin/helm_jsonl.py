@@ -7,7 +7,7 @@ import random
 # tokenizer = GPT2Tokenizer.from_pretrained("../DynamicBag/model/gpt2/", max_length=1e6)
 
 MAX_CONTEXT_LEN = 1.28e5
-DATA_DIR = "../data/HELM/"
+DATA_DIR = "../../ICL/data/HELM/"
 MODEL_DIR = "/mnt/vepfs/devel/zhangxiaoqing/ICL/models/t-20231014231302-k6jw7-iter_0001800/"
 
 from transformers import GPTSw3Tokenizer
@@ -748,12 +748,14 @@ def generate_training_data(outfile):
 def generate_test_data(outfile):
     global_id = 0
     out_data = []
-    train_instructions, train_data = process_medqa_v2(DATA_DIR + r"/QA/MedQA/data_clean/questions/Mainland/train.jsonl")
-    train_instructions, train_data = process_boolq(DATA_DIR + r"/QA/BoolQ/train.jsonl")
-    train_instructions, train_data = process_xsum(DATA_DIR + r"/Summarization/XSUM/", "train")
-    instructions, data = process_medqa_v2(DATA_DIR + r"/QA/MedQA/data_clean/questions/Mainland/test_100.jsonl")
-    instructions, data = process_boolq(DATA_DIR + r"/QA/BoolQ/test.jsonl")
-    instructions, data = process_xsum(DATA_DIR + r"/HELM/Summarization/XSUM/", "test")
+    # train_instructions, train_data = process_medqa_v2(DATA_DIR + r"/QA/MedQA/data_clean/questions/Mainland/train.jsonl")
+    # train_instructions, train_data = process_boolq(DATA_DIR + r"/QA/BoolQ/train.jsonl")
+    # train_instructions, train_data = process_xsum(DATA_DIR + r"/Summarization/XSUM/", "train")
+    train_instructions, train_data = process_quac(DATA_DIR + r"/QA/QuAC/train_v0.2.json")
+    # instructions, data = process_medqa_v2(DATA_DIR + r"/QA/MedQA/data_clean/questions/Mainland/test_100.jsonl")
+    # instructions, data = process_boolq(DATA_DIR + r"/QA/BoolQ/test.jsonl")
+    # instructions, data = process_xsum(DATA_DIR + r"/HELM/Summarization/XSUM/", "test")
+    instructions, data = process_quac(DATA_DIR + r"/QA/QuAC/val_v0.2.json")
     data = random.sample(data, 100)
     for demonstration_k in [0, 1, 3, 5, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]:
         # global_id, out_data = covert_data_2_test_jsonl_with_train(instructions, data, global_id, out_data, "MedQA", demonstration_k, train_data)
