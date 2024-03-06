@@ -127,7 +127,10 @@ def load_features_with_k(filename):
     predict_text = {}
     for line in open(filename, "r", encoding="utf-8"):
         line = line.strip()
-        predict_data = json.loads(line)
+        try:
+            predict_data = json.loads(line)
+        except:
+            continue
         k = predict_data["k"]
         infer_answer = predict_data["infer_answer"].strip()
         if len(infer_answer) == 0:
