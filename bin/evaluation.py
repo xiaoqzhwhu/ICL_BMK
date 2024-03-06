@@ -122,6 +122,37 @@ def load_features(filename):
     print(len(gold_text))
     return gold_text, predict_text
 
+def load_features_with_k(filename):
+    gold_text = {}
+    predict_text = {}
+    for line in open(filename, "r", encoding="utf-8"):
+        line = line.strip()
+        predict_data = json.loads(line)
+        k = predict_data["k"]
+        infer_answer = predict_data["infer_answer"].strip()
+        if len(infer_answer) == 0:
+            infer_answer = "NULL"
+        print("infer_answer")
+        print(infer_answer)
+        gt_answer = predict_data["messages"][-1]["content"].strip()
+        print("gt_answer")
+        print(gt_answer)
+        # gold_text.append(gt_answer)
+        # predict_text.append(infer_answer)
+        if k not in gold_text:
+            gold_text.setdefault(k, [gt_answer])
+            predict_text.setdefault(k, [infer_answer])
+        else:
+            gold_text[k].append(gt_answer)
+            predict_text[k].append(infer_answer)
+    print(len(gold_text))
+    return gold_text, predict_text
+
+def eval_acc_metrics(gold_text, predict_text):
+    # eval w/o k
+    correct = sum(1 for a, b in zip(gold_text, predict_text) if a == b)
+    return correct/len(gold_text)
+    
 def eval4generation(gold_text, predict_text):
     eval_distinct_metrics(gold_text, predict_text)
     eval_length_metrics(predict_text)
@@ -135,9 +166,13 @@ if __name__ == '__main__':
     predict_file = sys.argv[1]
     # 评测任务：generation/classification
     evaluation_type = sys.argv[2]
-    gold_text, predict_text = load_features(predict_file)
-    if evaluation_type == "generation":
-        eval4generation(gold_text, predict_text)
-    elif evaluation_type == "classification":
-        eval4classification(gold_text, predict_text)
+    # gold_text, predict_text = load_features(predict_file)
+    gold_dict, predict_dict = load_features_with_k(predict_file)
+    for k in gold_dict:
+        gold_text = gold_dict[k]
+        predict_text = predict_dict[k]
+        if evaluation_type == "generation":
+            eval4generation(gold_text, predict_text)
+        elif evaluation_type == "classification":
+            eval4classification(gold_text, predict_text)
     
