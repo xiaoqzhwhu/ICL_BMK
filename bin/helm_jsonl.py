@@ -736,7 +736,7 @@ def generate_training_data(outfile):
     global_id, out_data = covert_data_2_jsonl(instructions, data, global_id, out_data, "HELLASWAG")
     instructions, data = process_MMLU(DATA_DIR + r"/QA/MMLU/data/auxiliary_train/")
     global_id, out_data = covert_data_2_jsonl(instructions, data, global_id, out_data, "MMLU")
-    instructions, data = process_imdb(DATA_DIR + r"/Sentiment analysis/IMDB/aclImdb/train/pos/", DATA_DIR + r"./HELM/Sentiment analysis/IMDB/aclImdb/train/neg/")
+    instructions, data = process_imdb(DATA_DIR + r"/Sentiment analysis/IMDB/aclImdb/train/pos/", DATA_DIR + r"/Sentiment analysis/IMDB/aclImdb/train/neg/")
     global_id, out_data = covert_data_2_jsonl(instructions, data, global_id, out_data, "IMDB")
     # instructions, data = process_civil_comments(DATA_DIR + r"/Toxicity detection/CivilComments/all_data.csv")
     # global_id, out_data = covert_data_2_jsonl(instructions, data, global_id, out_data, "CIVILCOMMENT")
