@@ -154,7 +154,9 @@ def load_features_with_k(filename):
 def eval_acc_metrics(gold_text, predict_text):
     # eval w/o k
     correct = sum(1 for a, b in zip(gold_text, predict_text) if a == b)
-    return correct/len(gold_text)
+    acc = correct/len(gold_text)
+    print(acc)
+    return acc
     
 def eval4generation(gold_text, predict_text):
     eval_distinct_metrics(gold_text, predict_text)
