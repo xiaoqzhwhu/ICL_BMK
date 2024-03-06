@@ -135,11 +135,7 @@ def load_features_with_k(filename):
         infer_answer = predict_data["infer_answer"].strip()
         if len(infer_answer) == 0:
             infer_answer = "NULL"
-        print("infer_answer")
-        print(infer_answer)
         gt_answer = predict_data["messages"][-1]["content"].strip()
-        print("gt_answer")
-        print(gt_answer)
         # gold_text.append(gt_answer)
         # predict_text.append(infer_answer)
         if k not in gold_text:
@@ -148,7 +144,6 @@ def load_features_with_k(filename):
         else:
             gold_text[k].append(gt_answer)
             predict_text[k].append(infer_answer)
-    print(len(gold_text))
     return gold_text, predict_text
 
 def eval_acc_metrics(gold_text, predict_text):
